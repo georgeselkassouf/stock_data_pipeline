@@ -37,6 +37,9 @@ jobs:
       - name: Authenticate with Google Cloud
         run: gcloud auth activate-service-account --key-file=$HOME/google-credentials.json
 
+      - name: Set environment variable for Python
+        run: echo "GOOGLE_CREDENTIALS_JSON=$HOME/google-credentials.json" >> $GITHUB_ENV
+
       - name: Run update_database script
         run: python update_database.py
 
