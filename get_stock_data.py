@@ -1,6 +1,7 @@
 import requests
 import json
 from data_validation import StockData
+import os
 
 
 def get_stock_data(date: str):
