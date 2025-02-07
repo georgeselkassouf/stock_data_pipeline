@@ -26,3 +26,9 @@ jobs:
 
       - name: Run get_stock_data.py
         run: python get_stock_data.py
+
+      - name: Set up Google Cloud credentials
+        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > $HOME/google-credentials.json
+      - name: Authenticate with Google Cloud
+        run: gcloud auth activate-service-account --key-file=$HOME/google-credentials.json
+
