@@ -23,5 +23,3 @@ def get_stock_data(date: str):
         raise Exception(f"Request failed with status code {response.status_code}: {response.text}")
 
     return validated_data
-
-data = get_stock_data("2024-05-07")
