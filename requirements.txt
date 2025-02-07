@@ -1,3 +1,5 @@
 requests
 datetime
 pydantic
+bigquery
+google
