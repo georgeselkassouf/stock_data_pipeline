@@ -4,9 +4,9 @@ from data_validation import StockData
 import os
 
 
-def get_stock_data(date: str):
+token = os.getenv("API_KEY")
 
-    token = os.getenv("API_KEY")
+def get_stock_data(date: str):
 
     url = f"https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/{date}?adjusted=true"
 
