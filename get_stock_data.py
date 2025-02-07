@@ -5,10 +5,12 @@ from data_validation import StockData
 
 def get_stock_data(date: str):
 
+    token = os.getenv("API_KEY")
+
     url = f"https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/{date}?adjusted=true"
 
     headers = {
-        "Authorization": "Bearer FWED6gXKbxE6MZOM1qeppRHDQmBsrVsP"
+    "Authorization": f"Bearer {token}"
     }
 
     response = requests.get(url=url, headers=headers)
