@@ -24,7 +24,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt  # Ensure you have a requirements.txt file
 
-      - name: Set up environment variable
+      - name: Set API Key
         run: echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
 
       - name: Run get_stock_data.py
