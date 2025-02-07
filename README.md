@@ -22,6 +22,3 @@ This project uses GitHub Actions to automate the daily execution of the pipeline
   - **Install dependencies**: Installs all the required Python packages.
   - **Authenticate with Google Cloud**: Uses the base64-encoded service account credentials stored as a GitHub secret.
   - **Run update_database.py**: Executes the script to update the database with the latest stock data.
-
-## Project Structure
-
