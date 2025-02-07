@@ -11,7 +11,7 @@ def get_stock_data(date: str):
     url = f"https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/{date}?adjusted=true"
 
     headers = {
-    "Authorization": f"Bearer {token}"
+        "Authorization": f"Bearer {token}"
     }
 
     response = requests.get(url=url, headers=headers)
