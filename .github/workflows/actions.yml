@@ -33,5 +33,8 @@ jobs:
       - name: Set environment variable for Python
         run: echo "GOOGLE_CREDENTIALS_JSON=$HOME/google-credentials.json" >> $GITHUB_ENV
 
+      - name: Set environment variable for API_KEY
+        run: echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
+    
       - name: Run update_database script
         run: python update_database.py
