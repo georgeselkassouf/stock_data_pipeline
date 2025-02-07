@@ -14,7 +14,7 @@ date = "2024-06-04"
 data = get_stock_data(date=date)
 
 # BigQuery credentials and client setup
-key_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+key_path = os.getenv("GOOGLE_CREDENTIALS_JSON")
 credentials = service_account.Credentials.from_service_account_file(
     key_path, scopes=["https://www.googleapis.com/auth/bigquery"],
 )
