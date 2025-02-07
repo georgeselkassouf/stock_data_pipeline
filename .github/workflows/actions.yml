@@ -37,4 +37,7 @@ jobs:
       - name: Authenticate with Google Cloud
         run: gcloud auth activate-service-account --key-file=$HOME/google-credentials.json
 
+      - name: Run update_database script
+        run: python update_database.py
+
 
