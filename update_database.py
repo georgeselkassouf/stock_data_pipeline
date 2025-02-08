@@ -6,9 +6,7 @@ import os
 
 
 # Get today's date
-# date = datetime.date.today().strftime('%Y-%m-%d')
-
-date = "2024-06-04"
+date = datetime.date.today().strftime('%Y-%m-%d')
 
 # Fetch stock data
 data = get_stock_data(date=date)
