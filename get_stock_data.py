@@ -6,6 +6,14 @@ import os
 
 token = os.getenv("API_KEY")
 
+tickers = [
+    'AAPL', 'MSFT', 'NVDA', 'GOOGL', 'AMZN', 'META', 'TSLA', 'BRK.A', 'TSM', 'AVGO',
+    'LLY', 'UNH', 'JNJ', 'V', 'XOM', 'WMT', 'JPM', 'MA', 'PG', 'HD',
+    'CVX', 'MRK', 'PEP', 'KO', 'ABBV', 'PFE', 'ASML', 'ORCL', 'COST', 'CSCO',
+    'MCD', 'DHR', 'NKE', 'ADBE', 'TMO', 'DIS', 'BMY', 'TXN', 'ABT', 'PM',
+    'NEE', 'NFLX', 'INTC', 'LIN', 'AMD', 'HON', 'AMGN', 'SBUX', 'LOW', 'MDT'
+]
+
 def get_stock_data(date: str):
 
     url = f"https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/{date}?adjusted=true"
@@ -20,8 +28,11 @@ def get_stock_data(date: str):
 
         data = json.loads(response.text)["results"]
 
-        validated_data = [dict(StockData(**element)) for element in data]
+        filtered_data = [
+            element for element in data if element.get("T", "") in tickers
+        ]
 
+        validated_data = [dict(StockData(**element)) for element in filtered_data]
     else:
         raise Exception(f"Request failed with status code {response.status_code}: {response.text}")
 
