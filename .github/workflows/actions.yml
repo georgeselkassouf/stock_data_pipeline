@@ -61,6 +61,13 @@ jobs:
           name: combine_csvs_marker
           path: combine_csvs_run_marker.txt
 
+      - name: Download marker file as artifact
+        run: |
+          echo "Downloading the artifact..."
+        uses: actions/download-artifact@v4
+        with:
+          name: combine_csvs_marker
+
   update_database:
     runs-on: ubuntu-latest
     needs: combine_csvs  # This ensures that `update_database` runs only after `combine_csvs` finishes
