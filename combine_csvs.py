@@ -1,5 +1,7 @@
 import os
 import pandas as pd
+from google.cloud import bigquery
+from google.oauth2 import service_account
 
 def combine_csvs(folder_path):
     # List of all CSV files in the folder
