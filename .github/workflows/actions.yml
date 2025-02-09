@@ -80,15 +80,25 @@ jobs:
       - name: Verify marker file download
         run: |
           if [ -f combine_csvs_marker/combine_csvs_run_marker.txt ]; then
-            echo "Marker file exists, proceeding with the database update"
+            echo "Text marker file exists, proceeding with the database update"
+          elif [ -f combine_csvs_marker/combine_csvs_marker.zip ]; then
+            echo "ZIP marker file exists, proceeding with extraction"
+            # If ZIP file exists, you can extract it here
+            unzip combine_csvs_marker/combine_csvs_marker.zip -d combine_csvs_marker
           else
-            echo "Marker file does not exist, skipping database update"
+            echo "No valid marker file found, skipping database update"
             exit 1  # You can change this to skip the job or handle differently
           fi
 
       - name: Move marker file to the correct location
         run: |
-          mv combine_csvs_marker/combine_csvs_run_marker.txt $HOME/combine_csvs_run_marker.txt
+          # Move the text file if it exists
+          if [ -f combine_csvs_marker/combine_csvs_run_marker.txt ]; then
+            mv combine_csvs_marker/combine_csvs_run_marker.txt $HOME/combine_csvs_run_marker.txt
+          # If ZIP file was extracted, move the extracted text file
+          elif [ -f combine_csvs_marker/combine_csvs_run_marker.zip ]; then
+            mv combine_csvs_marker/combine_csvs_run_marker.zip $HOME/combine_csvs_run_marker.zip
+          fi
 
       - name: Run update_database script
         run: python update_database.py
