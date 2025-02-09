@@ -102,7 +102,13 @@ jobs:
           name: combine_csvs_marker
 
       - name: Verify marker file download
-        run: ls -la combine_csvs_marker  # List details of the downloaded marker file for verification
+        run: |
+          if [ -f combine_csvs_marker/combine_csvs_run_marker.txt ]; then
+            echo "Marker file exists, proceeding with the database update"
+          else
+            echo "Marker file does not exist, skipping database update"
+            exit 1  # You can change this to skip the job or handle differently
+          fi
 
       - name: Run update_database script
         run: python update_database.py
