@@ -8,7 +8,7 @@ on:
 jobs:
   combine_csvs:
     runs-on: ubuntu-latest
-    # Run this job only if the marker does not exist
+    # Run this job only if the marker file does not exist in the main repository
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -16,7 +16,7 @@ jobs:
     - name: Check if combine_csvs has already run
       id: check_marker
       run: |
-        if [ -f $GITHUB_WORKSPACE/combine_csvs_marker/combine_csvs_done.txt ]; then
+        if [ -f $GITHUB_WORKSPACE/combine_csvs_done.txt ]; then
           echo "Marker exists, skipping combine_csvs"
           exit 0
         fi
@@ -48,14 +48,7 @@ jobs:
       run: |
         python combine_csvs.py  # Run the combine CSV script
         # Create the marker file to indicate script completion
-        mkdir -p $GITHUB_WORKSPACE/combine_csvs_marker
-        touch $GITHUB_WORKSPACE/combine_csvs_marker/combine_csvs_done.txt
-
-    - name: Upload combine_csvs_marker as artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: combine_csvs_marker
-        path: $GITHUB_WORKSPACE/combine_csvs_marker
+        echo "combine_csvs completed successfully" > $GITHUB_WORKSPACE/combine_csvs_done.txt
 
   update_database:
     runs-on: ubuntu-latest
@@ -63,19 +56,16 @@ jobs:
     if: ${{ always() }}  # This makes sure `update_database` runs every time, even if combine_csvs didn't run
 
     steps:
-      - name: Download combine_csvs_marker artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: combine_csvs_marker
-          path: $GITHUB_WORKSPACE/combine_csvs_marker
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Check if artifact exists in the workspace
+      - name: Check if marker file exists
         run: |
-          if [ -f $GITHUB_WORKSPACE/combine_csvs_marker/combine_csvs_done.txt ]; then
-            echo "Artifact exists, proceeding with database update"
+          if [ -f $GITHUB_WORKSPACE/combine_csvs_done.txt ]; then
+            echo "Marker exists, proceeding with database update"
           else
-            echo "No valid artifact found, skipping database update"
+            echo "No valid marker found, skipping database update"
             exit 0  # Exit without running the update if the marker doesn't exist
-          
+
       - name: Run update_database script
         run: python update_database.py
