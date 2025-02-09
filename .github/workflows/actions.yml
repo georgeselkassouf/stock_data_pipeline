@@ -36,43 +36,38 @@ jobs:
     - name: Set environment variable for API_KEY
       run: echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
   
-    - name: Check if combine_csvs_marker artifact already exists
-      id: check_marker
+    - name: Run combine_csvs script
       run: |
-        # Check if the artifact directory exists
-        if [ -d "$GITHUB_WORKSPACE/combine_csvs_marker" ]; then
-          echo "Artifact combine_csvs_marker exists, skipping combine_csvs.py"
-          echo "has_run=true" >> $GITHUB_ENV
-        else
-          echo "Artifact combine_csvs_marker does not exist, will run combine_csvs.py"
-          echo "has_run=false" >> $GITHUB_ENV
-        fi
-  
-    - name: Run combine_csvs script (only once)
-      if: env.has_run == 'false'
-      run: |
-        echo "Running combine_csvs.py for the first time..."
         python combine_csvs.py  # Run the combine CSV script
-        touch combine_csvs_run_marker.txt  # Create the marker file
-        echo "Marker file created at: $(pwd)/combine_csvs_run_marker.txt"  # Debugging line
-        ls -la $(pwd)/combine_csvs_run_marker.txt  # List file details for verification
+        # Create the marker file to indicate script completion
+        mkdir -p $GITHUB_WORKSPACE/combine_csvs_marker
+        touch $GITHUB_WORKSPACE/combine_csvs_marker/combine_csvs_done.txt
+  
+    - name: Upload combine_csvs_marker as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: combine_csvs_marker
+        path: $GITHUB_WORKSPACE/combine_csvs_marker
 
   update_database:
     runs-on: ubuntu-latest
     needs: combine_csvs  # This ensures that `update_database` runs only after `combine_csvs` finishes
   
     steps:
+      - name: Download combine_csvs_marker artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: combine_csvs_marker
+          path: $GITHUB_WORKSPACE/combine_csvs_marker
+  
       - name: Check if artifact exists in the workspace
         run: |
-          if [ -d combine_csvs_marker ]; then
+          if [ -d $GITHUB_WORKSPACE/combine_csvs_marker ]; then
             echo "Artifact directory exists, proceeding with database update"
           else
             echo "No valid artifact directory found, skipping database update"
             exit 1  # Exit if no artifact directory
           fi
   
-      - name: Run update_database script
-        run: python update_database.py
-
       - name: Run update_database script
         run: python update_database.py
