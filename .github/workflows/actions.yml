@@ -35,6 +35,16 @@ jobs:
 
       - name: Set environment variable for API_KEY
         run: echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
-    
+
+      - name: Run combine_csvs script (only once)
+        run: |
+          if [ ! -f combine_csvs_run_marker.txt ]; then
+            echo "Running combine_csvs.py for the first time..."
+            python combine_csvs.py  # Run the combine CSV script
+            touch combine_csvs_run_marker.txt  # Create the marker file
+          else
+            echo "Skipping combine_csvs.py, it has already run."
+          fi
+
       - name: Run update_database script
         run: python update_database.py
