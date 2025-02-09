@@ -57,15 +57,3 @@ Before running the workflow, ensure the following:
   2. Set up Python and install dependencies.
   3. Authenticate with Google Cloud.
   4. Run the `update_database.py` script to update the database.
-
-## File Structure
-
-```plaintext
-.
-├── .github/
-│   └── workflows/
-│       └── stock_data_processing.yml  # GitHub Actions workflow file
-├── combine_csvs.py                   # Script for combining CSV files
-├── get_ticker_details.py             # Script for fetching ticker details
-├── update_database.py                # Script for updating the database
-├── requirements.txt                  # List of Python dependencies
