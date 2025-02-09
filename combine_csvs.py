@@ -30,4 +30,4 @@ def combine_csvs(folder_path):
     print("All files have been successfully combined into 'combined_stock_data.csv'.")
 
 
-combined_stock_data=combine_csvs(folder_path='C:/Users/Georges/Desktop/Project/historical_data')
+combined_stock_data=combine_csvs(folder_path='historical_data')
