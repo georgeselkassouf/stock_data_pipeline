@@ -2,7 +2,7 @@ name: Run get_stock_data Python script
 
 on:
   schedule:
-    - cron: '30 21 * * *'  # Runs daily at 9:30 PM UTC, which is 11:30 PM UTC+2
+    - cron: '30 23 * * *'  # Runs daily at 11:30 PM UTC+2, which is 9:30 PM UTC
   workflow_dispatch:  # Optional: allows manual trigger from GitHub UI
 
 jobs:
@@ -63,6 +63,7 @@ jobs:
 
   update_database:
     runs-on: ubuntu-latest
+    needs: combine_csvs  # Make sure this job runs after combine_csvs (if it runs)
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
