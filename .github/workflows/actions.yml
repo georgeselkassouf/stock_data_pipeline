@@ -92,10 +92,5 @@ jobs:
       - name: Set environment variable for API_KEY
         run: echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
 
-      - name: Download marker file artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: combine_csvs_marker
-
       - name: Run update_database script
         run: python update_database.py
