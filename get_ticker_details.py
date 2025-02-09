@@ -50,7 +50,7 @@ client = bigquery.Client(credentials=credentials, project=credentials.project_id
 
 # Define BigQuery dataset and table
 dataset_id = 'bionic-aspect-450214-c2.stock_data'
-table_id = f'{dataset_id}.daily_data'
+table_id = f'{dataset_id}.ticker_details'
 
 
 table = client.get_table(table_id)
