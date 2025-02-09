@@ -72,10 +72,16 @@ jobs:
     needs: combine_csvs  # This ensures that `update_database` runs only after `combine_csvs` finishes
 
     steps:
-      - name: Download marker file as artifact
+      - name: Download and extract marker file artifact
         uses: actions/download-artifact@v4
         with:
           name: combine_csvs_marker
+        run: |
+          # Extract the artifact ZIP file
+          mkdir -p combine_csvs_marker
+          unzip -q combine_csvs_marker.zip -d combine_csvs_marker
+          echo "Contents of extracted artifact:"
+          ls -la combine_csvs_marker
 
       - name: Verify marker file download
         run: |
