@@ -53,6 +53,7 @@ jobs:
         echo "combine_csvs completed successfully" > $GITHUB_WORKSPACE/combine_csvs_successful.txt
 
     - name: Commit marker file to repository
+      if: steps.check_marker.outcome != 'success'  # Only run this if the file was created
       run: |
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
