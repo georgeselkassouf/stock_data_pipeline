@@ -54,6 +54,10 @@ jobs:
           python combine_csvs.py  # Run the combine CSV script
           touch combine_csvs_run_marker.txt  # Create the marker file
 
+      - name: Verify marker file creation
+        if: env.has_run == 'false'
+        run: ls -la combine_csvs_run_marker.txt  # List details of the marker file for verification
+
       - name: Upload marker file as artifact
         if: env.has_run == 'false'
         uses: actions/upload-artifact@v4
@@ -96,6 +100,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: combine_csvs_marker
+
+      - name: Verify marker file download
+        run: ls -la combine_csvs_marker  # List details of the downloaded marker file for verification
 
       - name: Run update_database script
         run: python update_database.py
