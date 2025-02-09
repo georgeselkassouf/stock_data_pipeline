@@ -16,11 +16,11 @@ def combine_csvs(folder_path):
         df = pd.read_csv(os.path.join(folder_path, file))
 
         # Add a new column 'Ticker' with the name of the file (without extension)
-        df['Ticker'] = file.split('.')[0]
+        df['ticker'] = file.split('.')[0]
         
         # Convert the date column to datetime and append '00:00:00' as the time part
-        if 'Date' in df.columns:
-            df['Date'] = pd.to_datetime(df['Date'], format='%m/%d/%Y').dt.strftime('%Y-%m-%d') + ' 00:00:00'
+        if 'date' in df.columns:
+            df['date'] = pd.to_datetime(df['date'], format='%m/%d/%Y').dt.strftime('%Y-%m-%d') + ' 00:00:00'
 
         # Convert the dataframe to a list of dictionaries and append to the combined_data list
         combined_data.extend(df.to_dict(orient='records'))
