@@ -75,11 +75,12 @@ jobs:
 
       - name: Check if marker file exists
         run: |
-          if [ -f $GITHUB_WORKSPACE/combine_csvs_done.txt ]; then
+          if [ -f "$GITHUB_WORKSPACE/combine_csvs_done.txt" ]; then
             echo "Marker exists, proceeding with database update"
           else
             echo "No valid marker found, skipping database update"
             exit 0  # Exit without running the update if the marker doesn't exist
+          fi
 
       - name: Run update_database script
         run: python update_database.py
