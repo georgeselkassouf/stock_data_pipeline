@@ -47,13 +47,6 @@ jobs:
             echo "has_run=false" >> $GITHUB_ENV
           fi
 
-      - name: Download marker file if exists
-        uses: actions/download-artifact@v4
-        with:
-          name: combine_csvs_marker
-          path: ./  # Downloads the artifact to the current directory
-        if: env.has_run == 'false'
-
       - name: Run combine_csvs script (only once)
         if: env.has_run == 'false'
         run: |
