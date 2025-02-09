@@ -52,6 +52,14 @@ jobs:
         # Create the marker file to indicate script completion
         echo "combine_csvs completed successfully" > $GITHUB_WORKSPACE/combine_csvs_done.txt
 
+    - name: Commit marker file to repository
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+        git add $GITHUB_WORKSPACE/combine_csvs_done.txt
+        git commit -m "Add marker file to indicate combine_csvs completion"
+        git push
+
   update_database:
     runs-on: ubuntu-latest
     needs: combine_csvs  # This ensures that `update_database` runs only after `combine_csvs` finishes
