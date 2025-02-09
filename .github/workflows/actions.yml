@@ -19,6 +19,8 @@ jobs:
         if [ -f $GITHUB_WORKSPACE/combine_csvs_done.txt ]; then
           echo "Marker exists, skipping combine_csvs"
           exit 0
+        else
+          echo "No marker file found, proceeding with combine_csvs"
         fi
 
     - name: Set up Python
