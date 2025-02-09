@@ -60,6 +60,10 @@ jobs:
         git commit -m "Add marker file to indicate combine_csvs completion"
         git push
 
+      # Use GITHUB_TOKEN to push changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Automatically generated token
+
   update_database:
     runs-on: ubuntu-latest
     needs: combine_csvs  # This ensures that `update_database` runs only after `combine_csvs` finishes
