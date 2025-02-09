@@ -53,6 +53,8 @@ jobs:
           echo "Running combine_csvs.py for the first time..."
           python combine_csvs.py  # Run the combine CSV script
           touch combine_csvs_run_marker.txt  # Create the marker file
+          echo "Marker file created at: $(pwd)/combine_csvs_run_marker.txt"  # Debugging line
+          ls -la $(pwd)/combine_csvs_run_marker.txt  # List file details for verification
 
       - name: Verify marker file creation
         if: env.has_run == 'false'
@@ -70,32 +72,6 @@ jobs:
     needs: combine_csvs  # This ensures that `update_database` runs only after `combine_csvs` finishes
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt  # Ensure you have a requirements.txt file
-
-      - name: Decode and Save Google Cloud Credentials
-        run: |
-          echo "${{ secrets.GOOGLE_CREDENTIALS_JSON }}" | base64 --decode > $HOME/google-credentials.json
-
-      - name: Authenticate with Google Cloud
-        run: gcloud auth activate-service-account --key-file=$HOME/google-credentials.json
-
-      - name: Set environment variable for Python
-        run: echo "GOOGLE_CREDENTIALS_JSON=$HOME/google-credentials.json" >> $GITHUB_ENV
-
-      - name: Set environment variable for API_KEY
-        run: echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
-
       - name: Download marker file as artifact
         uses: actions/download-artifact@v4
         with:
