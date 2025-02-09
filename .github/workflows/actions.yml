@@ -36,15 +36,30 @@ jobs:
       - name: Set environment variable for API_KEY
         run: echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
 
-      - name: Run combine_csvs script (only once)
+      - name: Check if combine_csvs has run before
+        id: check_marker
         run: |
-          if [ ! -f combine_csvs_run_marker.txt ]; then
-            echo "Running combine_csvs.py for the first time..."
-            python combine_csvs.py  # Run the combine CSV script
-            touch combine_csvs_run_marker.txt  # Create the marker file
+          if [ -f combine_csvs_run_marker.txt ]; then
+            echo "Marker file exists, skipping combine_csvs.py"
+            echo "has_run=true" >> $GITHUB_ENV
           else
-            echo "Skipping combine_csvs.py, it has already run."
+            echo "Marker file does not exist, will run combine_csvs.py"
+            echo "has_run=false" >> $GITHUB_ENV
           fi
+
+      - name: Run combine_csvs script (only once)
+        if: env.has_run == 'false'
+        run: |
+          echo "Running combine_csvs.py for the first time..."
+          python combine_csvs.py  # Run the combine CSV script
+          touch combine_csvs_run_marker.txt  # Create the marker file
+
+      - name: Upload marker file as artifact
+        if: env.has_run == 'false'
+        uses: actions/upload-artifact@v3
+        with:
+          name: combine_csvs_marker
+          path: combine_csvs_run_marker.txt
 
   update_database:
     runs-on: ubuntu-latest
@@ -76,6 +91,11 @@ jobs:
 
       - name: Set environment variable for API_KEY
         run: echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
+
+      - name: Download marker file artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: combine_csvs_marker
 
       - name: Run update_database script
         run: python update_database.py
