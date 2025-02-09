@@ -55,7 +55,7 @@ table_id = f'{dataset_id}.daily_data'
 
 table = client.get_table(table_id)
 
-if data:
+if daily_data:
     errors = client.insert_rows_json(table_id, tickers_details)
     if not errors:
         print("Data successfully inserted.")
