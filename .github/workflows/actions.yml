@@ -38,14 +38,16 @@ jobs:
     - name: Check if combine_csvs has already run
       id: check_marker
       run: |
+        # Check if the marker file exists
         if [ -f "$GITHUB_WORKSPACE/combine_csvs_successful.txt" ]; then
           echo "Marker exists, skipping combine_csvs job"
-          exit 0  # Skip the rest of the steps in the combine_csvs job if the file exists
+          return 0  # Use return to exit early from the script
         else
           echo "No marker file found, proceeding with combine_csvs"
         fi
 
     - name: Run combine_csvs script
+      if: ${{ steps.check_marker.outcome != 'success' }}  # Only run if the previous step did not exit early
       run: |
         python combine_csvs.py  # Run the combine CSV script
         # Create the marker file to indicate script completion
