@@ -77,14 +77,6 @@ jobs:
         with:
           name: combine_csvs_marker
 
-      - name: Extract marker file artifact
-        run: |
-          # Extract the artifact ZIP file
-          mkdir -p combine_csvs_marker
-          unzip -q combine_csvs_marker.zip -d combine_csvs_marker
-          echo "Contents of extracted artifact:"
-          ls -la combine_csvs_marker
-
       - name: Verify marker file download
         run: |
           if [ -f combine_csvs_marker/combine_csvs_run_marker.txt ]; then
@@ -93,6 +85,9 @@ jobs:
             echo "Marker file does not exist, skipping database update"
             exit 1  # You can change this to skip the job or handle differently
           fi
+
+      - name: Move marker file to the correct location
+        run: mv combine_csvs_marker/combine_csvs_run_marker.txt $HOME/combine_csvs_run_marker.txt
 
       - name: Run update_database script
         run: python update_database.py
