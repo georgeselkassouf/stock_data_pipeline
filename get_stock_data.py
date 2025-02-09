@@ -2,7 +2,7 @@ import requests
 import json
 import os
 from tickers_list import tickers
-from data_validation.stock_data_valdiation import StockData
+from data_validation.stock_data_validation import StockData
 
 token = os.getenv("API_KEY")
 
