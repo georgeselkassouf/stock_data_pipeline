@@ -3,3 +3,4 @@ datetime
 pydantic
 bigquery
 google
+pandas
