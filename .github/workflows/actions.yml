@@ -72,26 +72,18 @@ jobs:
     needs: combine_csvs  # This ensures that `update_database` runs only after `combine_csvs` finishes
   
     steps:
-      - name: Download marker file artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: combine_csvs_marker
-  
-      - name: Verify ZIP marker file existence
+      - name: Check if artifact exists in the workspace
         run: |
-          if [ -f combine_csvs_marker/combine_csvs_marker.zip ]; then
-            echo "ZIP marker file exists, proceeding with database update"
+          if [ -d combine_csvs_marker ]; then
+            echo "Artifact directory exists, proceeding with database update"
           else
-            echo "No valid ZIP marker file found, skipping database update"
-            exit 1  # You can choose to exit or skip the next steps based on your requirements
-          fi
-  
-      - name: Move marker file to the correct location
-        run: |
-          if [ -f combine_csvs_marker/combine_csvs_marker.zip ]; then
-            mv combine_csvs_marker/combine_csvs_marker.zip $HOME/combine_csvs_marker.zip
+            echo "No valid artifact directory found, skipping database update"
+            exit 1  # Exit if no artifact directory
           fi
   
       - name: Run update_database script
         run: python update_database.py
 
+  
+      - name: Run update_database script
+        run: python update_database.py
