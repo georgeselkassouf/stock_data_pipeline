@@ -23,3 +23,27 @@ def combine_csvs(folder_path):
 
 
 combined_stock_data=combine_csvs(folder_path='historical_data')
+
+
+# BigQuery credentials and client setup
+key_path = os.getenv("GOOGLE_CREDENTIALS_JSON")
+credentials = service_account.Credentials.from_service_account_file(
+    key_path, scopes=["https://www.googleapis.com/auth/bigquery"],
+)
+client = bigquery.Client(credentials=credentials, project=credentials.project_id)
+
+# Define BigQuery dataset and table
+dataset_id = 'bionic-aspect-450214-c2.stock_data'
+table_id = f'{dataset_id}.data'
+
+
+table = client.get_table(table_id)
+
+if data:
+    errors = client.insert_rows_json(table_id, data)
+    if not errors:
+        print("Data successfully inserted.")
+    else:
+        print(f"Errors occurred: {errors}")
+else:
+    print("No data to insert.")
