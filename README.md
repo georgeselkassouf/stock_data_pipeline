@@ -1,6 +1,6 @@
 # Stock Data Pipeline
 
-This project fetches daily stock data from an external API, processes it, and updates a Google BigQuery table. The pipeline is automated and runs daily at **12:00 AM UTC+2** using GitHub Actions.
+This project fetches daily stock data from an external API, processes it, and updates a Google BigQuery table. The pipeline is automated and runs daily at **11:30 PM UTC+2** using GitHub Actions.
 
 ## Features
 
