@@ -8,7 +8,7 @@ token = os.getenv("API_KEY")
 
 tickers = [
     'AAPL', 'MSFT', 'NVDA', 'GOOGL', 'AMZN', 'META', 'TSLA', 'ASML', 'ORCL', 'COST', 'CSCO',
-    'MCD', 'DHR', 'NKE', 'ADBE', 'TMO', 'DIS', 'NFLX', 'INTC', 'LIN', 'AMD', 'HON', 'AMGN','LOW', 'MDT'
+    'MCD', 'DHR', 'NKE', 'ADBE', 'TMO', 'DIS', 'NFLX', 'INTC', 'SBUX', 'AMD', 'HON', 'AMGN','LOW', 'MDT'
 ]
 
 def get_stock_data(date: str):
