@@ -40,7 +40,7 @@ table_id = f'{dataset_id}.data'
 table = client.get_table(table_id)
 
 if data:
-    errors = client.insert_rows_json(table_id, data)
+    errors = client.insert_rows_json(table_id, combined_stock_data)
     if not errors:
         print("Data successfully inserted.")
     else:
