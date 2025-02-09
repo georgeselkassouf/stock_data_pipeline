@@ -40,20 +40,20 @@ jobs:
       run: |
         if [ -f "$GITHUB_WORKSPACE/combine_csvs_successful.txt" ]; then
           echo "Marker exists, skipping combine_csvs job"
-          exit 0  # Skip the job if the file exists
+          echo "skip=true" >> $GITHUB_ENV  # Skip the job if marker exists
         else
           echo "No marker file found, proceeding with combine_csvs"
         fi
 
     - name: Run combine_csvs script
-      if: steps.check_marker.outcome != 'success'  # Only run if the previous step did not exit
+      if: env.skip != 'true'  # Only run if the skip flag is not set
       run: |
         python combine_csvs.py  # Run the combine CSV script
         # Create the marker file to indicate script completion
         echo "combine_csvs completed successfully" > $GITHUB_WORKSPACE/combine_csvs_successful.txt
 
     - name: Commit marker file to repository
-      if: steps.check_marker.outcome != 'success'  # Only run this if the file was created
+      if: env.skip != 'true'  # Only run if the skip flag is not set
       run: |
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
