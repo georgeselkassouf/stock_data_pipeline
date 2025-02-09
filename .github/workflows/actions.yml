@@ -44,7 +44,7 @@ jobs:
         touch $GITHUB_WORKSPACE/combine_csvs_marker/combine_csvs_done.txt
   
     - name: Upload combine_csvs_marker as artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v2
       with:
         name: combine_csvs_marker
         path: $GITHUB_WORKSPACE/combine_csvs_marker
@@ -55,7 +55,7 @@ jobs:
   
     steps:
       - name: Download combine_csvs_marker artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v2
         with:
           name: combine_csvs_marker
           path: $GITHUB_WORKSPACE/combine_csvs_marker
