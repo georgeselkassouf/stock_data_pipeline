@@ -65,7 +65,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: combine_csvs_marker
-          path: combine_csvs_run_marker.txt
+          path: combine_csvs_run_marker.txt  # Ensure you're uploading the file directly, not as a zip
 
   update_database:
     runs-on: ubuntu-latest
@@ -87,7 +87,8 @@ jobs:
           fi
 
       - name: Move marker file to the correct location
-        run: mv combine_csvs_marker/combine_csvs_run_marker.txt $HOME/combine_csvs_run_marker.txt
+        run: |
+          mv combine_csvs_marker/combine_csvs_run_marker.txt $HOME/combine_csvs_run_marker.txt
 
       - name: Run update_database script
         run: python update_database.py
