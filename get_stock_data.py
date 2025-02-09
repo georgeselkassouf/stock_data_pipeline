@@ -1,6 +1,6 @@
 import requests
 import json
-from data_validation import StockData
+from stock_data_validation import StockData
 import os
 from tickers_list import tickers
 
