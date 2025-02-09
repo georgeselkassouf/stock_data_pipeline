@@ -5,7 +5,7 @@ from google.cloud import bigquery
 from google.oauth2 import service_account
 import os
 from tickers_list import tickers
-from data_validation.tickers_details_valdiation import TickerDetails
+from data_validation.tickers_details_validation import TickerDetails
 
 
 def get_ticker_details(tickers: list):
