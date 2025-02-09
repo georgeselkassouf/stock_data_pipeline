@@ -8,6 +8,8 @@ on:
 jobs:
   combine_csvs:
     runs-on: ubuntu-latest
+    # This job should run only once, on the first run or if marker is not found
+    if: !exists($GITHUB_WORKSPACE/combine_csvs_marker/combine_csvs_done.txt)  # Run only if marker doesn't exist
 
     steps:
     - name: Checkout repository
@@ -52,6 +54,7 @@ jobs:
   update_database:
     runs-on: ubuntu-latest
     needs: combine_csvs  # This ensures that `update_database` runs only after `combine_csvs` finishes
+    if: exists($GITHUB_WORKSPACE/combine_csvs_marker/combine_csvs_done.txt)  # Only run if combine_csvs_done.txt exists
   
     steps:
       - name: Download combine_csvs_marker artifact
