@@ -2,6 +2,7 @@ import os
 import pandas as pd
 from google.cloud import bigquery
 from google.oauth2 import service_account
+from data_validation.historical_data_valdiation import historical_data_validation
 
 def combine_csvs(folder_path):
     # List of all CSV files in the folder
@@ -17,15 +18,17 @@ def combine_csvs(folder_path):
 
         # Add a new column 'Ticker' with the name of the file (without extension)
         df['ticker'] = file.split('.')[0]
-        
+
         # Convert the date column to datetime and append '00:00:00' as the time part
-        if 'date' in df.columns:
-            df['date'] = pd.to_datetime(df['date'], format='%m/%d/%Y').dt.strftime('%Y-%m-%d') + ' 00:00:00'
+        if 'Date' in df.columns:
+            df['Date'] = pd.to_datetime(df['Date'], format='%m/%d/%Y').dt.strftime('%Y-%m-%d') + ' 00:00:00'
 
         # Convert the dataframe to a list of dictionaries and append to the combined_data list
         combined_data.extend(df.to_dict(orient='records'))
 
-    return combined_data
+        validated_data = [dict(HistoricalData(**element)) for element in combined_data]
+
+    return validated_data
 
 
 combined_stock_data=combine_csvs(folder_path='historical_data')
