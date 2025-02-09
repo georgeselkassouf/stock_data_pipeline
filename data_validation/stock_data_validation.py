@@ -17,8 +17,8 @@ class StockData(BaseModel):
     close_price: float = Field(alias="c",
                                default=0.0)
 
-    volume: float = Field(alias="v",
-                          default=0.0)
+    volume: int = Field(alias="v",
+                          default=0)
 
     high_price: float = Field(alias="h",
                               default=0.0)
