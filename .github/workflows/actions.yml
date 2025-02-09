@@ -60,10 +60,6 @@ jobs:
         if: env.has_run == 'false'
         run: ls -la combine_csvs_run_marker.txt  # List details of the marker file for verification
 
-      - name: Verify the marker file type
-        run: file combine_csvs_run_marker.txt
-
-
       - name: Upload marker file as artifact
         if: env.has_run == 'false'
         uses: actions/upload-artifact@v4
