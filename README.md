@@ -1,24 +1,71 @@
-# Stock Data Pipeline
+# Stock Data Processing Workflow
 
-This project fetches daily stock data from an external API, processes it, and updates a Google BigQuery table. The pipeline is automated and runs daily at **11:30 PM UTC+2** using GitHub Actions.
+This repository automates the process of combining stock data, retrieving ticker details, and updating a database using GitHub Actions. The workflow is triggered both manually and on a scheduled basis.
 
-## Features
+## Overview
 
-- **Fetch stock data**: Retrieves stock data for a specified date using the Polygon API.
-- **Update Google BigQuery**: Inserts the fetched stock data into a BigQuery table.
-- **Automated execution**: The pipeline runs daily at midnight UTC+2 using GitHub Actions.
-- **Google Cloud Integration**: Uses service account credentials stored securely in GitHub Secrets for authentication.
+The GitHub Actions workflow automates three core tasks:
 
-## GitHub Actions
+1. **Combine CSV Files**: Merges multiple stock data CSV files into one consolidated file.
+2. **Fetch Ticker Details**: Retrieves detailed information about stock tickers.
+3. **Update Database**: Updates the database with the latest stock data.
 
-This project uses GitHub Actions to automate the daily execution of the pipeline:
+### Workflow Trigger
+- **Scheduled Cron Job**: Runs daily at **11:30 PM UTC+2** (9:30 PM UTC).
+- **Manual Trigger**: You can also manually trigger the workflow via GitHub UI.
 
-### Workflow
+## Prerequisites
 
-- **Trigger**: The workflow runs daily at 12:00 AM UTC+2 (10:00 PM UTC).
-- **Jobs**: 
-  - **Checkout the repository**: Ensures the latest code is pulled.
-  - **Set up Python**: Configures the required Python version (3.9 in this case).
-  - **Install dependencies**: Installs all the required Python packages.
-  - **Authenticate with Google Cloud**: Uses the base64-encoded service account credentials stored as a GitHub secret.
-  - **Run update_database.py**: Executes the script to update the database with the latest stock data.
+Before running the workflow, ensure the following:
+
+1. **Secrets**:
+   - `GOOGLE_CREDENTIALS_JSON`: Base64 encoded Google Cloud service account credentials.
+   - `API_KEY`: API key required by the scripts to fetch stock data.
+
+2. **requirements.txt**: Ensure you have a `requirements.txt` file that lists the necessary Python dependencies for the scripts.
+
+3. **Python 3.9**: The workflow is set to use Python version 3.9. Make sure your environment is compatible.
+
+## Workflow Details
+
+### Jobs in the Workflow
+
+#### 1. **Combine CSVs Job**
+- **Purpose**: Combines multiple CSV files into one consolidated CSV file.
+- **Steps**:
+  1. Check out the repository.
+  2. Set up Python and install dependencies.
+  3. Authenticate with Google Cloud.
+  4. Check for the existence of a marker file to avoid re-running.
+  5. If no marker file exists, run `combine_csvs.py`.
+  6. Commit a marker file indicating the job is complete.
+
+#### 2. **Get Ticker Details Job**
+- **Purpose**: Retrieves detailed information for various stock tickers.
+- **Steps**:
+  1. Check out the repository.
+  2. Set up Python and install dependencies.
+  3. Authenticate with Google Cloud.
+  4. Check for the existence of a marker file to avoid re-running.
+  5. If no marker file exists, run `get_ticker_details.py`.
+  6. Commit a marker file indicating the job is complete.
+
+#### 3. **Update Database Job**
+- **Purpose**: Updates the database with the latest stock data.
+- **Steps**:
+  1. Check out the repository.
+  2. Set up Python and install dependencies.
+  3. Authenticate with Google Cloud.
+  4. Run the `update_database.py` script to update the database.
+
+## File Structure
+
+```plaintext
+.
+├── .github/
+│   └── workflows/
+│       └── stock_data_processing.yml  # GitHub Actions workflow file
+├── combine_csvs.py                   # Script for combining CSV files
+├── get_ticker_details.py             # Script for fetching ticker details
+├── update_database.py                # Script for updating the database
+├── requirements.txt                  # List of Python dependencies
