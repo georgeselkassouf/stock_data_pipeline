@@ -8,8 +8,14 @@ class TickerDetails(BaseModel):
     name: str = Field(alias="name",
                       default="")
 
+    locale: str = Field(alias="locale",
+                        default="")
+
     primary_exchange: str = Field(alias="primary_exchange",
                                   default="")
+
+    currency_name: str = Field(alias="currency_name",
+                               default="")
 
     market_cap: float = Field(alias="market_cap",
                               default=0.0)
