@@ -16,16 +16,18 @@ def get_stock_data(date: str):
 
     response = requests.get(url=url, headers=headers)
 
-    if response.status_code == 200 and json.loads(response.text)["resultsCount"] > 0:
+    # Check if the status code is 200
+    if response.status_code != 200:
+        raise Exception(f"Request failed with status code {response.status_code}: {response.text}")
+        
+    response_data = json.loads(response.text)
 
-        data = json.loads(response.text)["results"]
-
-        filtered_data = [
-            element for element in data if element.get("T", "") in tickers
-        ]
+    if response_data.get("resultsCount", 0) <= 0:
+        print("No results found.")
+    else:
+        data = response_data["results"]
+        filtered_data = [element for element in data if element.get("T", "") in tickers]
 
         validated_data = [dict(StockData(**element)) for element in filtered_data]
-    else:
-        raise Exception(f"Request failed with status code {response.status_code}: {response.text}")
 
     return validated_data
