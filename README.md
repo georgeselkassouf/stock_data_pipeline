@@ -70,5 +70,5 @@ To clone this repository to your local machine, follow these steps:
    - Run the following command:
 
    ```bash
-   git clone https://github.com/your-username/your-repository-name.git
+   git clone https://github.com/georgeselkassouf/stock_data_pipeline.git
 
