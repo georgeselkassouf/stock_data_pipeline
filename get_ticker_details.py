@@ -8,10 +8,12 @@ from tickers_list import tickers
 from data_validation.tickers_details_validation import TickerDetails
 
 
+token = os.getenv("API_KEY")
+
 def get_ticker_details(tickers: list):
     url_base = "https://api.polygon.io/v3/reference/tickers/"
     headers = {
-        "Authorization": "Bearer pLVCI0x7EyhQJRXh6SVB7rXmunyYH3Ki"
+        "Authorization": f"Bearer {token}"
     }
 
     all_data = []
