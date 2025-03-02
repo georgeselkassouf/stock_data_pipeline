@@ -36,7 +36,7 @@ def get_ticker_details(tickers: list):
             time.sleep(60)
             request_count = 0
 
-        validated_data = [dict(TickerDetails(**element)) for element in all_data]
+    validated_data = [dict(TickerDetails(**element)) for element in all_data]
 
     return validated_data
 

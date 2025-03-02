@@ -24,10 +24,11 @@ def get_stock_data(date: str):
 
     if response_data.get("resultsCount", 0) <= 0:
         print("No results found.")
+        return []
     else:
         data = response_data["results"]
         filtered_data = [element for element in data if element.get("T", "") in tickers]
 
-        validated_data = [dict(StockData(**element)) for element in filtered_data]
+    validated_data = [dict(StockData(**element)) for element in filtered_data]
 
     return validated_data

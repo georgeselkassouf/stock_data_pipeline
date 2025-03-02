@@ -17,12 +17,11 @@ def combine_csvs(folder_path):
         df = pd.read_csv(os.path.join(folder_path, file))
 
         # Add a new column 'Ticker' with the name of the file (without extension)
-        df['ticker'] = file.split('.')[0]
-
+        df['ticker'] = file.rsplit('.csv', 1)[0]
         # Convert the dataframe to a list of dictionaries and append to the combined_data list
         combined_data.extend(df.to_dict(orient='records'))
 
-        validated_data = [dict(HistoricalData(**element)) for element in combined_data]
+    validated_data = [dict(HistoricalData(**element)) for element in combined_data]
 
     return validated_data
 
