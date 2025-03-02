@@ -11,7 +11,7 @@ The GitHub Actions workflow automates three core tasks:
 3. **Update Database**: Updates the database with the latest stock data.
 
 ### Workflow Trigger
-- **Scheduled Cron Job**: Runs from Monday to Friday at **11:30 PM UTC+2** (9:30 PM UTC).
+- **Scheduled Cron Job**: Runs from Monday to Friday at **11:50 PM UTC+2** (9:50 PM UTC).
 - **Manual Trigger**: You can also manually trigger the workflow via GitHub UI.
 
 ## Prerequisites
