@@ -8,10 +8,10 @@ The GitHub Actions workflow automates three core tasks:
 
 1. **Combine CSV Files**: Merges multiple stock data CSV files into one consolidated file.
 2. **Fetch Ticker Details**: Retrieves detailed information about stock tickers.
-3. **Update Database**: Updates the database with the latest stock data.
+3. **Update Database**: Updates the database with the previous day's stock data.
 
 ### Workflow Trigger
-- **Scheduled Cron Job**: Runs from Monday to Friday at **11:50 PM UTC+2** (9:50 PM UTC).
+- **Scheduled Cron Job**: Runs from Tuesday to Saturday at **12:00 PM UTC+2** (10:00 AM UTC).
 - **Manual Trigger**: You can also manually trigger the workflow via GitHub UI.
 
 ## Prerequisites
