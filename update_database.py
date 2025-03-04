@@ -1,9 +1,8 @@
 from google.cloud import bigquery
 import datetime
 from google.oauth2 import service_account
-from get_stock_data import get_stock_data
 import os
-
+from get_stock_data import get_stock_data
 
 # Get yesterday's date
 date = (datetime.date.today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d')

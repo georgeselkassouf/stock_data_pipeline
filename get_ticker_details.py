@@ -4,9 +4,8 @@ import json
 from google.cloud import bigquery
 from google.oauth2 import service_account
 import os
-from tickers_list import tickers
 from data_validation.tickers_details_validation import TickerDetails
-
+from tickers_list import tickers
 
 token = os.getenv("API_KEY")
 
