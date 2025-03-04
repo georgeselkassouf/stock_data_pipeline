@@ -1,5 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel, Field, model_validator
+import re
 
 class HistoricalData(BaseModel):
     ticker: str = Field(alias="ticker",
@@ -30,7 +31,7 @@ class HistoricalData(BaseModel):
             if field in values:
                 value = values[field]
                 if isinstance(value, str):  # Check if the value is a string
-                    value = value.replace('$', '').replace(',', '').strip()  # Remove '$', ',' and whitespace
+                    value = re.sub(r'[^\d.]', '', value).strip() 
                     try:
                         values[field] = float(value)  # Convert to float
                     except ValueError:
