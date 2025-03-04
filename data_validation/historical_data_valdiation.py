@@ -39,7 +39,7 @@ class HistoricalData(BaseModel):
             # Convert date field to timestamp for BigQuery (format: 'YYYY-MM-DD 00:00:00')
             if "date" in values:
                 try:
-                    values["date"] = (datetime.strptime('02/03/2025', '%m/%d/%Y')).strftime('%Y-%m-%d') + ' 00:00:00'
+                    values["date"] = (datetime.strptime(values["date"], '%m/%d/%Y')).strftime('%Y-%m-%d') + ' 00:00:00'
 
                 except Exception as e:
                     raise ValueError(f"Invalid timestamp: {values['date']}. Error: {e}")
