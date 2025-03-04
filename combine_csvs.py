@@ -27,7 +27,7 @@ def combine_csvs(folder_path):
     return validated_data
 
 
-def insert_data_in_batches(client, table_id, combined_stock_data, batch_size=10000):
+def insert_data_in_batches(client, table_id, combined_stock_data, batch_size=5000):
     """Insert data into BigQuery in smaller batches to avoid 413 errors."""
     # Calculate the number of batches needed
     num_batches = math.ceil(len(combined_stock_data) / batch_size)
