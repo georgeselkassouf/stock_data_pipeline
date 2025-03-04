@@ -4,6 +4,7 @@ from google.cloud import bigquery
 from google.oauth2 import service_account
 from data_validation.historical_data_validation import HistoricalData
 import math
+from datetime import datetime
 
 def combine_csvs(folder_path):
     # List of all CSV files in the folder
