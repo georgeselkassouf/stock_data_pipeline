@@ -2,7 +2,7 @@ name: Run get_stock_data Python script
 
 on:
   schedule:
-    - cron: '0 14 * * 2-6'  # Runs from Tuesday to Saturday at 16:00 PM UTC+2, which is 14:00 PM UTC
+    - cron: '0 15 * * 2-6'  # Runs from Tuesday to Saturday at 17:00 PM UTC+2, which is 15:00 PM UTC
   workflow_dispatch:  # Optional: allows manual trigger from GitHub UI
 
 jobs:
