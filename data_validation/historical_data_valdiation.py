@@ -31,7 +31,7 @@ class HistoricalData(BaseModel):
             if field in values:
                 value = values[field]
                 if isinstance(value, str):  # Check if the value is a string
-                    value = re.sub(r'[^\d.]', '', value).strip() 
+                    value = re.sub(r'[^\d.]', '', value.replace(',', '').strip())
                     try:
                         values[field] = float(value)  # Convert to float
                     except ValueError:
