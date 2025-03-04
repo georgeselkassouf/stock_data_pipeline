@@ -20,9 +20,9 @@ def combine_csvs(folder_path):
         # Add a new column 'Ticker' with the name of the file (without extension)
         df['ticker'] = file.rsplit('.csv', 1)[0]
 
-        # Convert 'date' field to "%Y-%m-%d" format if the column exists
+        # Convert 'date' field to "%Y-%m-%d"
         if 'date' in df.columns:
-            df['date'] = pd.to_datetime(df['date']).dt.strftime('%Y-%m-%d')
+            df['date'] = df['date'].apply(lambda x: datetime.strptime(x.strip().split()[0], "%Y-%m-%d"))
 
         # Convert the dataframe to a list of dictionaries and append to the combined_data list
         combined_data.extend(df.to_dict(orient='records'))
