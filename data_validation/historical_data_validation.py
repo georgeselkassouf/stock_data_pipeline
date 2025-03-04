@@ -36,11 +36,11 @@ class HistoricalData(BaseModel):
                     except ValueError:
                         raise ValueError(f"Could not convert {value} to float for {field}")
 
-            # Convert date field to timestamp for BigQuery (format: 'YYYY-MM-DD 00:00:00')
-            if "date" in values:
-                try:
-                    values["date"] = datetime.strptime(values["date"], "%Y-%m-%d").strftime('%Y-%m-%d %H:%M:%S')
+            # # Convert date field to timestamp for BigQuery (format: 'YYYY-MM-DD 00:00:00')
+            # if "date" in values:
+            #     try:
+            #         values["date"] = datetime.strptime(values["date"], "%Y-%m-%d").strftime('%Y-%m-%d %H:%M:%S')
     
-                except Exception as e:
-                    raise ValueError(f"Invalid timestamp: {values['date']}. Error: {e}")
+            #     except Exception as e:
+            #         raise ValueError(f"Invalid timestamp: {values['date']}. Error: {e}")
         return values
