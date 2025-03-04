@@ -23,7 +23,7 @@ def combine_csvs(folder_path):
 
         # Convert 'date' field to "%Y-%m-%d"
         if 'date' in df.columns:
-            df['date'] = df['date'].apply(lambda x: datetime.strptime(x.strip().split()[0], "%Y-%m-%d"))
+            df['date'] = pd.to_datetime(df['date']).dt.strftime('%Y-%m-%d')
 
         # Convert the dataframe to a list of dictionaries and append to the combined_data list
         combined_data.extend(df.to_dict(orient='records'))
