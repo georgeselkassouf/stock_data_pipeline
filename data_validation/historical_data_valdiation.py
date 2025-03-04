@@ -1,5 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel, Field, model_validator
+import re
 
 class HistoricalData(BaseModel):
     ticker: str = Field(alias="ticker",
@@ -30,7 +31,7 @@ class HistoricalData(BaseModel):
             if field in values:
                 value = values[field]
                 if isinstance(value, str):  # Check if the value is a string
-                    value = value.replace('$', '').replace(',', '').strip()  # Remove '$', ',' and whitespace
+                    value = re.sub(r'[^\d.]', '', value.replace(',', '').strip())
                     try:
                         values[field] = float(value)  # Convert to float
                     except ValueError:
@@ -39,7 +40,8 @@ class HistoricalData(BaseModel):
             # Convert date field to timestamp for BigQuery (format: 'YYYY-MM-DD 00:00:00')
             if "date" in values:
                 try:
-                    values["date"] = datetime.strptime(values["date"], "%Y-%m-%d").strftime('%Y-%m-%d %H:%M:%S')
+                    # Parse the date with the format 'MM/DD/YYYY' and convert to 'YYYY-MM-DD HH:MM:SS'
+                    values["date"] = datetime.strptime(values["date"], "%m/%d/%Y").strftime('%Y-%m-%d %H:%M:%S')
                 except Exception as e:
                     raise ValueError(f"Invalid timestamp: {values['date']}. Error: {e}")
-        return values
+            return values
