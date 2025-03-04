@@ -3,6 +3,7 @@ import pandas as pd
 from google.cloud import bigquery
 from google.oauth2 import service_account
 from data_validation.historical_data_valdiation import HistoricalData
+import math
 
 def combine_csvs(folder_path):
     # List of all CSV files in the folder
@@ -26,8 +27,22 @@ def combine_csvs(folder_path):
     return validated_data
 
 
-combined_stock_data=combine_csvs(folder_path='historical_data')
+def insert_data_in_batches(client, table_id, combined_stock_data, batch_size=10000):
+    """Insert data into BigQuery in smaller batches to avoid 413 errors."""
+    # Calculate the number of batches needed
+    num_batches = math.ceil(len(combined_stock_data) / batch_size)
 
+    for i in range(num_batches):
+        batch_data = combined_stock_data[i * batch_size: (i + 1) * batch_size]
+        errors = client.insert_rows_json(table_id, batch_data)
+        if errors:
+            print(f"Error in batch {i + 1}: {errors}")
+        else:
+            print(f"Batch {i + 1} successfully inserted.")
+
+
+# Combine data from CSVs
+combined_stock_data = combine_csvs(folder_path='historical_data')
 
 # BigQuery credentials and client setup
 key_path = os.getenv("GOOGLE_CREDENTIALS_JSON")
@@ -40,14 +55,8 @@ client = bigquery.Client(credentials=credentials, project=credentials.project_id
 dataset_id = 'bionic-aspect-450214-c2.stock_data'
 table_id = f'{dataset_id}.historical_data'
 
-
-table = client.get_table(table_id)
-
+# Insert data into BigQuery in batches
 if combined_stock_data:
-    errors = client.insert_rows_json(table_id, combined_stock_data)
-    if not errors:
-        print("Data successfully inserted.")
-    else:
-        print(f"Errors occurred: {errors}")
+    insert_data_in_batches(client, table_id, combined_stock_data, batch_size=10000)
 else:
     print("No data to insert.")
