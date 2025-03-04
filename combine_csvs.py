@@ -21,9 +21,9 @@ def combine_csvs(folder_path):
         # Add a new column 'Ticker' with the name of the file (without extension)
         df['ticker'] = file.rsplit('.csv', 1)[0]
 
-        # Convert 'date' field to "%Y-%m-%d"
+        # Convert 'date' field to '%Y-%m-%d %H:%M:%S'
         if 'date' in df.columns:
-            df['date'] = df['date'].apply(lambda x: datetime.strptime(x.strip().split()[0], "%Y-%m-%d"))
+            df['date'] = pd.to_datetime(df['date']).dt.strftime('%Y-%m-%d %H:%M:%S')
 
         # Convert the dataframe to a list of dictionaries and append to the combined_data list
         combined_data.extend(df.to_dict(orient='records'))
@@ -34,7 +34,7 @@ def combine_csvs(folder_path):
 
 
 def insert_data_in_batches(client, table_id, combined_stock_data, batch_size=5000):
-    """Insert data into BigQuery in smaller batches to avoid 413 errors."""
+    """Insert data into BigQuery in smaller batches to avoid errors."""
     # Calculate the number of batches needed
     num_batches = math.ceil(len(combined_stock_data) / batch_size)
 
