@@ -117,7 +117,6 @@ jobs:
           git push https://github.com/${{ github.repository }} HEAD:${{ github.ref }}
 
   update_database:
-    needs: [combine_csvs]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
