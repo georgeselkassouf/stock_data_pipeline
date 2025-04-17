@@ -1,3 +1,4 @@
+
 # Stock Data Processing Workflow
 
 This repository automates the process of combining stock data, retrieving ticker details, and updating a database using GitHub Actions. The workflow is triggered both manually and on a scheduled basis.
@@ -67,6 +68,8 @@ Before running the workflow, ensure the following:
 You can explore the resulting stock data in the interactive Power BI dashboard here:
 
 🔗 [View Dashboard](https://app.powerbi.com/view?r=eyJrIjoiY2JmOGU4ODgtMDRlNS00ZDgwLTk5ZTItMjhiNTViODE0NDM0IiwidCI6ImRkZjhiYWQyLWY4ZGEtNDg3Zi05OGQ1LWQzMGExNjM0MjA0OSJ9)
+
+![Power BI Dashboard Preview](dashboard/dashboard_demo.png)
 
 ---
 
