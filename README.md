@@ -14,6 +14,8 @@ The GitHub Actions workflow automates three core tasks:
 - **Scheduled Cron Job**: Runs from Tuesday to Saturday at **22:00 PM UTC+2** (20:00 PM UTC).
 - **Manual Trigger**: You can also manually trigger the workflow via GitHub UI.
 
+> ⏳ **Execution Period**: The workflow ran from **March 4th to April 12th**, retrieving stock data for the previous day each time. As a result, data was collected from **March 3rd to April 11th**.
+
 ## Prerequisites
 
 Before running the workflow, ensure the following:
@@ -57,7 +59,17 @@ Before running the workflow, ensure the following:
   2. Set up Python and install dependencies.
   3. Authenticate with Google Cloud.
   4. Run the `update_database.py` script to update the database.
- 
+
+---
+
+## 📊 Power BI Dashboard
+
+You can explore the resulting stock data in the interactive Power BI dashboard here:
+
+🔗 [View Dashboard](https://app.powerbi.com/view?r=eyJrIjoiY2JmOGU4ODgtMDRlNS00ZDgwLTk5ZTItMjhiNTViODE0NDM0IiwidCI6ImRkZjhiYWQyLWY4ZGEtNDg3Zi05OGQ1LWQzMGExNjM0MjA0OSJ9)
+
+---
+
 ## Cloning the Repository
 
 To clone this repository to your local machine, follow these steps:
@@ -71,4 +83,3 @@ To clone this repository to your local machine, follow these steps:
 
    ```bash
    git clone https://github.com/georgeselkassouf/stock_data_pipeline.git
-
