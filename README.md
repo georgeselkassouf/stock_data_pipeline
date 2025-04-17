@@ -69,7 +69,7 @@ You can explore the resulting stock data in the interactive Power BI dashboard h
 
 🔗 [View Dashboard](https://app.powerbi.com/view?r=eyJrIjoiY2JmOGU4ODgtMDRlNS00ZDgwLTk5ZTItMjhiNTViODE0NDM0IiwidCI6ImRkZjhiYWQyLWY4ZGEtNDg3Zi05OGQ1LWQzMGExNjM0MjA0OSJ9)
 
-![Power BI Dashboard Preview](dashboard/dashboard_demo.png)
+![Power BI Dashboard Preview](dashboard/dashboard_demo.jpg)
 
 ---
 
