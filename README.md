@@ -3,6 +3,8 @@
 
 This repository automates the process of combining stock data, retrieving ticker details, and updating a database using GitHub Actions. The workflow is triggered on a scheduled basis.
 
+![Pipeline Preview](pipeline.png)
+
 ## Overview
 
 The GitHub Actions workflow automates three core tasks:
@@ -25,9 +27,9 @@ Before running the workflow, ensure the following:
    - `GOOGLE_CREDENTIALS_JSON`: Base64 encoded Google Cloud service account credentials.
    - `API_KEY`: API key required by the scripts to fetch stock data.
 
-2. **requirements.txt**: Ensure you have a `requirements.txt` file that lists the necessary Python dependencies for the scripts.
+2. **requirements.txt**: A file that lists the necessary Python dependencies for the scripts.
 
-3. **Python 3.9**: The workflow is set to use Python version 3.9. Make sure your environment is compatible.
+3. **Python 3.9**: The workflow is set to use Python version 3.9.
 
 ## Workflow Details
 
@@ -80,7 +82,7 @@ To clone this repository to your local machine, follow these steps:
 1. **Install Git**: If you haven't already, make sure Git is installed on your system. You can download and install it from [here](https://git-scm.com/downloads).
 
 2. **Clone the Repository**:
-   - Open your terminal (or Git Bash on Windows).
+   - Open your terminal.
    - Navigate to the directory where you want to clone the repository.
    - Run the following command:
 
