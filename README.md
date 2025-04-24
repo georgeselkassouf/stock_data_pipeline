@@ -1,7 +1,7 @@
 
 # Stock Data Processing Workflow
 
-This repository automates the process of combining stock data, retrieving ticker details, and updating a database using GitHub Actions. The workflow is triggered both manually and on a scheduled basis.
+This repository automates the process of combining stock data, retrieving ticker details, and updating a database using GitHub Actions. The workflow is triggered on a scheduled basis.
 
 ## Overview
 
