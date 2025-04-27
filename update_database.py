@@ -5,8 +5,8 @@ import os
 from get_stock_data import get_stock_data
 
 # Get yesterday's date
-date = (datetime.date.today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d')
-
+# date = (datetime.date.today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d')
+date = "2025-04-25"
 # Fetch stock data
 data = get_stock_data(date=date)
 
